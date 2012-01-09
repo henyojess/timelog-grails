@@ -11,6 +11,7 @@ import org.springframework.security.authentication.LockedException
 import org.springframework.security.core.context.SecurityContextHolder as SCH
 import org.springframework.security.web.WebAttributes
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import timelog.*
 
 class LoginController {
 
@@ -50,8 +51,37 @@ class LoginController {
 
 		String view = 'auth'
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
-		render view: view, model: [postUrl: postUrl,
-		                           rememberMeParameter: config.rememberMe.parameter]
+		def model = [postUrl: postUrl,
+		                           rememberMeParameter: config.rememberMe.parameter]		
+        def today = TimeEntry.today()     
+        model.today = today   
+        //model.users_with_entry = listUsersWithEntry(today)
+        def all_users = User.list().collect{ it.username.split('@')[0] }
+        //model.users_without_entry = all_users - model.users_with_entry
+        model.users_with_entry = []
+        model.users_without_entry = []
+        (0..3).each{
+            model.users_with_entry[it] = listUsersWithEntry(today - (it))
+            model.users_without_entry[it] = all_users - model.users_with_entry[it]
+        }
+        
+		render view: view, model:model
+	}
+	
+	private def listUsersWithEntry = { date ->
+	    def time_entries = TimeEntry.withCriteria{
+            ge('entryDate',date)
+            lt('entryDate',date+1)
+            order('id','desc')
+        }
+	    def users_with_entry = []
+        time_entries.each{
+            def name = it.createdBy.split('@')[0]
+            if(!users_with_entry.contains(name)){
+                users_with_entry.add(name)
+            }
+        }
+        return users_with_entry
 	}
 
 	/**
