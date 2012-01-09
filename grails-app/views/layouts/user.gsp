@@ -117,7 +117,7 @@
       </div>
 
       <footer>
-        <p>&copy; jessie.evangelista at gmail dot com 2011</p>
+        <p><a href="https://github.com/henyojess/timelog-grails">Timelog</a> v<g:meta name="app.version"/> &copy; 2011</p>
       </footer>
 
     </div> <!-- /container -->
