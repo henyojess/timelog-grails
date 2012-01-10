@@ -6,10 +6,19 @@
 
 <body>
     <div class="page-header">
-        <h3><g:formatDate date="${new Date()}" type="date" style="FULL"/></h3>
         <div class="row">
-            <div class="span7">
-                <h3>People with entries</h3>
+            <h3 class="span7">People with entries</h3>
+            <h3 class="span7">People without entries</h3>
+        </div>
+        <div class="row">
+            <p class="span14">
+                <strong>
+                <g:formatDate date="${today}" type="date" style="FULL"/>
+                </strong>
+            </p>
+        </div>
+        <div class="row">
+            <div class="span7">                                
                 <g:if test="${users_with_entry[0]}">        
                     <div class="unstyled alert-message block-message success">
                         <g:each in="${users_with_entry[0]}" var="u">
@@ -23,8 +32,7 @@
                     </div>
                 </g:else>
             </div>
-            <div class="span7">            
-                <h3>People without entries</h3>
+            <div class="span7">                            
                 <g:if test="${users_without_entry[0]}">
                     <div class="unstyled alert-message block-message error">
                         <g:each in="${users_without_entry[0]}" var="u">
@@ -40,8 +48,15 @@
             </div>
         </div>                
     </div>
-    <g:each in="${(1..3)}" var="i">
-        <h3><g:formatDate date="${today - i}" type="date" style="FULL"/></h3>
+    <g:each in="${(1..7)}" var="i">
+        <g:if test="${users_with_entry[i]}">
+            <div class="row">
+                <p class="span14">
+                    <strong>
+                    <g:formatDate date="${today - i}" type="date" style="FULL"/>
+                    </strong>
+                </p>
+            </div>
             <div class="row">
                 <div class="span7">
                     <g:if test="${users_with_entry[i]}">        
@@ -73,6 +88,7 @@
                 </div>
             </div>
             <hr class="span14"/>
+        </g:if>
     </g:each>
        
 <script type='text/javascript'>

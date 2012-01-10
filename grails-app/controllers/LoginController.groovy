@@ -60,7 +60,8 @@ class LoginController {
         //model.users_without_entry = all_users - model.users_with_entry
         model.users_with_entry = []
         model.users_without_entry = []
-        (0..3).each{
+        (0..7).each{
+            def users_with_entry
             model.users_with_entry[it] = listUsersWithEntry(today - (it))
             model.users_without_entry[it] = all_users - model.users_with_entry[it]
         }
