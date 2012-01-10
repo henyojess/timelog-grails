@@ -56,7 +56,7 @@ class LoginController {
         def today = TimeEntry.today()     
         model.today = today   
         //model.users_with_entry = listUsersWithEntry(today)
-        def all_users = User.list().collect{ it.username.split('@')[0] }
+        def all_users = User.findAllByEnabled(true).collect{ it.username.split('@')[0] }
         //model.users_without_entry = all_users - model.users_with_entry
         model.users_with_entry = []
         model.users_without_entry = []
