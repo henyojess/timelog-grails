@@ -13,11 +13,13 @@ class Story {
     
     static belongsTo = Project
     
+    static hasMany = [ tasks: Task ]
+    
     static constraints = {
         description blank:false
         releaseTarget blank:false
         status blank:false
         createdBy blank:false
-        updatedBy nullable:true,blank:false        
+        updatedBy nullable:true,blank:false
     }
 }

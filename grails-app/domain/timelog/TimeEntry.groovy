@@ -9,6 +9,9 @@ class TimeEntry {
     String updatedBy
     Date dateCreated
     Date lastUpdated
+    Task task
+    
+    static belongsTo = Task
     
     static constraints = {
         description blank:false
@@ -16,6 +19,7 @@ class TimeEntry {
         entryDate nullable:false
         createdBy blank:false
         updatedBy nullable:true
+        task nullable:true
     }
     
     static Date today(){
