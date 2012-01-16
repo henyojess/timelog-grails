@@ -4,6 +4,7 @@ class BootStrap {
     def init = { servletContext ->
         bootstrapService.doBootStrapUsers()
         bootstrapService.doBootStrapRoles()
+        bootstrapService.doBootStrapProjects()
     }
     def destroy = {
     }

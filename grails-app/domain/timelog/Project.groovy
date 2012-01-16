@@ -10,7 +10,7 @@ class Project {
     Date lastUpdated
     String nextRelease = '0.99.0'
     
-    static hasMany = [ members:User]
+    static hasMany = [ members:User, stories:Story ]
 
     static constraints = {
         name blank:false
