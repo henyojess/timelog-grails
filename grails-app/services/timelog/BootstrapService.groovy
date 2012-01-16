@@ -15,6 +15,7 @@ class BootstrapService {
         def user = User.findByUsername('user@henyo.com')
         UserRole.create(user,role_user,true)
     }
+    
     def doBootStrapUsers(){        
         if(User.count())
             return
@@ -26,5 +27,16 @@ class BootstrapService {
             def user = new User(username:username,password:username,createdBy:username)
             user.save(failOnError:true,flush:true)
         }        
+    }
+    
+    def doBootStrapProjects(){
+        if(Project.count())
+            return
+        (1..5).each{ i ->
+            def project = new Project(name:"project${i}")
+            project.createdBy = 'admin@henyo.com'
+            
+            project.save(failInError:true, flush:true)
+        }
     }
 }
