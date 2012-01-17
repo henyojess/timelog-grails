@@ -2,6 +2,7 @@ package timelog
 
 import org.springframework.dao.DataIntegrityViolationException
 
+@grails.plugins.springsecurity.Secured('IS_AUTHENTICATED_FULLY')
 class StoryController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -17,7 +18,9 @@ class StoryController {
     }
 
     def create() {
-        [storyInstance: new Story(params)]
+        def storyInstance = new Story(params)
+        storyInstance.project = Project.get(params.project_id)
+        [storyInstance:storyInstance]
     }
 
     def save() {
@@ -29,7 +32,7 @@ class StoryController {
         }
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'story.label', default: 'Story'), storyInstance.id])
-        redirect(action: "show", id: storyInstance.id)
+        redirect(controller:'project',action: "show", id: storyInstance.project.id)
     }
 
     def show() {
@@ -52,7 +55,7 @@ class StoryController {
         }
 
         [storyInstance: storyInstance]
-    }
+    }    
 
     def update() {
         def storyInstance = Story.get(params.id)
@@ -82,9 +85,10 @@ class StoryController {
         }
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'story.label', default: 'Story'), storyInstance.id])
-        redirect(action: "show", id: storyInstance.id)
+        redirect(controller:'project',action: "show", id: storyInstance?.project?.id)
     }
 
+    @grails.plugins.springsecurity.Secured('ROLE_ADMIN')
     def delete() {
         def storyInstance = Story.get(params.id)
         if (!storyInstance) {
@@ -94,13 +98,39 @@ class StoryController {
         }
 
         try {
+            def project = storyInstance.project
             storyInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'story.label', default: 'Story'), params.id])
-            redirect(action: "list")
+            redirect(controller:'project',action: "show", id: project?.id)
         }
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'story.label', default: 'Story'), params.id])
             redirect(action: "show", id: params.id)
         }
+    }
+    
+    def addToNextRelease() {
+        def storyInstance = Story.get(params.id)
+        if(storyInstance){
+            flash.message = storyInstance.addToNextRelease()
+            flash.error = true                
+            if(flash.message == 'SUCCESS'){
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'story.label', default: 'Story'), storyInstance.id])
+                flash.error = false
+            }                
+                
+        }else{
+            flash.message = message(code: 'default.notfound.message', args: [message(code: 'story.label', default: 'Story'), params.id])
+        }
+        redirect(controller:'project',action: "show", id: storyInstance?.project?.id)                   
+    }
+    
+    def removeFromNextRelease(){
+        def storyInstance = Story.get(params.id)
+        if(storyInstance){
+            storyInstance.removeFromNextRelease()
+            flash.message = message(code: 'default.updated.message', args: [message(code: 'story.label', default: 'Story'), storyInstance.id])            
+        }
+        redirect(controller:'project',action: "show", id: storyInstance?.project?.id)       
     }
 }

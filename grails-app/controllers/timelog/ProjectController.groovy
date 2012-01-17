@@ -2,6 +2,7 @@ package timelog
 
 import org.springframework.dao.DataIntegrityViolationException
 
+@grails.plugins.springsecurity.Secured('IS_AUTHENTICATED_FULLY')
 class ProjectController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -39,10 +40,13 @@ class ProjectController {
             redirect(action: "list")
             return
         }
-
-        [projectInstance: projectInstance]
+        def members = projectInstance.members.collect{
+            it.username.split('@')[0]
+        }
+        [projectInstance: projectInstance,members:members]
     }
 
+    @grails.plugins.springsecurity.Secured('ROLE_ADMIN')
     def edit() {
         def projectInstance = Project.get(params.id)
         if (!projectInstance) {
@@ -85,6 +89,7 @@ class ProjectController {
         redirect(action: "show", id: projectInstance.id)
     }
 
+    @grails.plugins.springsecurity.Secured('ROLE_ADMIN')
     def delete() {
         def projectInstance = Project.get(params.id)
         if (!projectInstance) {

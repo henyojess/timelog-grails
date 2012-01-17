@@ -28,9 +28,11 @@
                 </g:each>
                 <h4>Entry Date:</h4>
                 <g:datePicker name="entryDate" value="${timeEntry.entryDate}"  noSelection="['':'--']" precision="day" relativeYears="[-1..0]" class="mini"/>
-                <h4>&nbsp;</h4>
-                <button class="btn" type="submit">Save</button>&nbsp;&nbsp;&nbsp;
-                <g:link action="index">Cancel</g:link>
+                <h4>Complete Task: <g:checkBox name="taskComplete"/> </h4>                
+                <button class="primary btn" type="submit">Save</button>
+                <g:link controller="project" action="show" id="${timeEntry.task?.story?.project?.id}" class="btn" >
+                    <g:message code="task.button.cancel.label" default="Cancel" />
+	            </g:link>
             </g:form>
         </div>
   </body>

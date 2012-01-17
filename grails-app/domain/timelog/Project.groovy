@@ -18,4 +18,8 @@ class Project {
         updatedBy nullable:true,blank:false
         nextRelease blank:false
     }
+    
+    static mapping = {
+        stories sort: 'id', order: 'asc'
+    }
 }

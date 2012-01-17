@@ -1,44 +1,26 @@
 <%@ page import="timelog.Story" %>
+<g:hiddenField name="project.id" value="${storyInstance?.project?.id}"/>
 
-<div class="fieldcontain ${hasErrors(bean: storyInstance, field: 'project', 'error')} required">
-	<label for="project">
-		<g:message code="story.project.label" default="Project" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="project" name="project.id" from="${timelog.Project.list()}" optionKey="id" optionValue="name" required="" value="${storyInstance?.project?.id}" class="many-to-one"/>
-</div>
-
-
-<div class="fieldcontain ${hasErrors(bean: storyInstance, field: 'description', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: storyInstance, field: 'description', 'error')} required clearfix">
 	<label for="description">
 		<g:message code="story.description.label" default="Description" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="description" required="" value="${storyInstance?.description}"/>
+	<g:textArea name="description" required="" value="${storyInstance?.description}" class="xxlarge"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: storyInstance, field: 'releaseTarget', 'error')} required">
-	<label for="releaseTarget">
+<div class="fieldcontain ${hasErrors(bean: storyInstance, field: 'releaseTarget', 'error')} required clearfix">
+	<label for="status">
 		<g:message code="story.releaseTarget.label" default="Release Target" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="releaseTarget" required="" value="${storyInstance?.releaseTarget}"/>
+	<input disabled="true" value="${storyInstance.releaseTarget}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: storyInstance, field: 'status', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: storyInstance, field: 'status', 'error')} required clearfix">
 	<label for="status">
 		<g:message code="story.status.label" default="Status" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="status" required="" value="${storyInstance?.status}"/>
+	<input disabled="true" value="${storyInstance.status}"/>
 </div>
-
-<div class="fieldcontain ${hasErrors(bean: storyInstance, field: 'active', 'error')} ">
-	<label for="active">
-		<g:message code="story.active.label" default="Active" />
-		
-	</label>
-	<g:checkBox name="active" value="${storyInstance?.active}" />
-</div>
-
-

@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Timelog</title>
+    <title>Timelog <g:meta name="app.version"/></title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -80,35 +80,15 @@
         ul.entries span.description {display:block;padding-left:0.5em;color:#333}
         ul.entries span.links {display:block;text-align:right;padding-right:0.5em;}
     </style>
-    <g:layoutHead/>
-        <r:layoutResources />
+    <g:javascript library="jquery"/>        
+    <r:layoutResources />
+    <g:javascript src="dropdown.js" />
+    <g:layoutHead/>    
   </head>
 
   <body>
 
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
-          <a class="brand" href="${createLink(uri:'/')}">Timelog</a>
-          <ul class="nav">
-            <li class="active"><a href="${createLink(controller:'home')}">Home</a></li>
-          </ul>
-          <sec:ifNotLoggedIn>
-            <form id="loginForm" action="${request.contextPath}/j_spring_security_check" method="POST" class="pull-right">
-                <input class="input-small" type="text" placeholder="Username" name="j_username">
-                <input class="input-small" type="password" placeholder="Password" name="j_password">
-                <button class="btn" type="submit">Sign in</button>
-            </form>
-          </sec:ifNotLoggedIn>
-          <sec:ifLoggedIn>                        
-             <form action="${request.contextPath}/logout" class="pull-right">
-                <span style="color:#ddd"><sec:loggedInUserInfo field="username"/>&nbsp;&nbsp;&nbsp;</span>
-                <button class="btn" type="submit">Sign out</button>
-            </form>
-          </sec:ifLoggedIn>
-        </div>
-      </div>
-    </div>
+    <g:include controller="navigation"/>
 
     <div class="container">
 

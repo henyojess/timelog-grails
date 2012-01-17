@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta name="layout" content="user" />
-    
+    <meta name="menu" content="Home"/>
   </head>
   <body>
         <div class="page-header">
