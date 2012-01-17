@@ -5,6 +5,7 @@ class Task {
     String description
     String status = 'Incomplete'
     Integer estimate
+    String estimatedBy
     Story story
     
     String createdBy
@@ -20,6 +21,7 @@ class Task {
         description blank:false
         status blank:false
         estimate nullable:true, min:1 ,max:16
+        estimatedBy nullable:true, blank:false
         createdBy blank:false
         updatedBy nullable:true,blank:false       
     }

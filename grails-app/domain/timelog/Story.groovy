@@ -10,6 +10,7 @@ class Story {
     Date dateCreated
     Date lastUpdated
     Project project
+    List tasks
     
     static belongsTo = Project
     
