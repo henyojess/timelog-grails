@@ -3,8 +3,8 @@
         <div class="container">
           <a class="brand" href="${createLink(uri:'/')}">Timelog</a>
           <ul class="nav">
-            <li class="${pageProperty(name:'meta.menu')=='Home'?'active':''}"><a href="${createLink(controller:'home')}">Home</a></li>
             <sec:ifLoggedIn>
+            <li class="${pageProperty(name:'meta.menu')=='Home'?'active':''}"><a href="${createLink(controller:'home')}">Home</a></li>            
                 <li class="dropdown ${pageProperty(name:'meta.menu')=='My Projects'?'active':''}" data-dropdown="dropdown">
                     <a href="${createLink(controller:'project')}" class="dropdown-toggle">My Projects</a>
                     <ul class="dropdown-menu">
