@@ -4,7 +4,7 @@
           <a class="brand" href="${createLink(uri:'/')}">Timelog</a>
           <ul class="nav">
             <sec:ifLoggedIn>
-            <li class="${pageProperty(name:'meta.menu')=='Home'?'active':''}"><a href="${createLink(controller:'home')}">Home</a></li>            
+                <li class="${pageProperty(name:'meta.menu')=='Home'?'active':''}"><a href="${createLink(controller:'home')}">Home</a></li>
                 <li class="dropdown ${pageProperty(name:'meta.menu')=='My Projects'?'active':''}" data-dropdown="dropdown">
                     <a href="${createLink(controller:'project')}" class="dropdown-toggle">My Projects</a>
                     <ul class="dropdown-menu">
@@ -19,6 +19,12 @@
                             <li><a href="${createLink(controller:'project',action:'create')}">New Project</a></li>
                             <li><a href="${createLink(controller:'project')}">Show All</a></li>
                         </sec:ifAllGranted>
+                    </ul>
+                </li>
+                <li class="dropdown ${pageProperty(name:'meta.menu')=='Reports'?'active':''}" data-dropdown="dropdown">
+                    <a href="${createLink(controller:'project')}" class="dropdown-toggle">Reports</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${createLink(controller:'usage')}">Daily Usage</a></li>
                     </ul>
                 </li>
             </sec:ifLoggedIn>
