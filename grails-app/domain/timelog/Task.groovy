@@ -3,7 +3,7 @@ package timelog
 class Task {
     
     String description
-    String status = 'Incomplete'
+    String status = 'Estimate'
     Integer estimate
     String estimatedBy
     Story story
@@ -12,7 +12,9 @@ class Task {
     String updatedBy    
     Date dateCreated
     Date lastUpdated
-        
+    
+    static statusList = ['Estimate','Pending','Incomplete','Completed']
+    
     static belongsTo = Story
     
     static hasMany = [ timeEntries:TimeEntry ]
@@ -24,5 +26,22 @@ class Task {
         estimatedBy nullable:true, blank:false
         createdBy blank:false
         updatedBy nullable:true,blank:false       
+    }
+    
+    def beforeInsert(){
+        if(status == 'Estimate' && estimate)
+            status = 'Pending'
+    }
+    
+    def beforeUpdate(){
+        beforeInsert()
+    }
+    
+    def actualHours(){
+        def actual = 0
+        timeEntries.each{ t->
+            actual += t.duration
+        }
+        return actual
     }
 }

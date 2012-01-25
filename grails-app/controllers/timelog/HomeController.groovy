@@ -70,6 +70,8 @@ class HomeController {
         TimeEntry timeEntry = new TimeEntry(parseTextInput(params.textInput))
         timeEntry.entryDate = new Date()
         timeEntry.createdBy = authenticatedUser.username
+        if(params.task_id)
+            timeEntry.task = Task.get(params.task_id)
         if(timeEntry.save(flush:true))
             redirect(action:'index')
         else

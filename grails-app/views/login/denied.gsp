@@ -1,10 +1,10 @@
 <head>
-<meta name='layout' content='main' />
+<meta name='layout' content='user' />
 <title><g:message code="springSecurity.denied.title" /></title>
 </head>
 
 <body>
 <div class='body'>
-	<div class='errors'><g:message code="springSecurity.denied.message" /></div>
+	<div class='label important'><g:message code="springSecurity.denied.message" /></div>
 </div>
 </body>

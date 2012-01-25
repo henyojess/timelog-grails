@@ -1,7 +1,8 @@
 <%@ page import="timelog.User" %>
 <html>
 <head>
-	<meta name='layout' content='user'/>	
+	<meta name='layout' content='user'/>
+    <meta name='menu' content='Home'/>
 </head>
 
 <body>

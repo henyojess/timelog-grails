@@ -12,11 +12,29 @@ hibernate {
 // environment specific settings
 environments {
     development {
+/*    
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE"
         }
-    }
+*/
+
+        dataSource {
+                dbCreate = "update"
+                url = "jdbc:h2:file:data/prodDb;MVCC=TRUE"
+                pooled = true
+                properties {
+                   maxActive = -1
+                   minEvictableIdleTimeMillis=1800000
+                   timeBetweenEvictionRunsMillis=1800000
+                   numTestsPerEvictionRun=3
+                   testOnBorrow=true
+                   testWhileIdle=true
+                   testOnReturn=true
+                   validationQuery="SELECT 1"
+                }
+            }
+        }
     test {
         dataSource {
             dbCreate = "update"

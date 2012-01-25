@@ -2,22 +2,14 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="user">
 		<g:set var="entityName" value="${message(code: 'story.label', default: 'Story')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#create-story" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="create-story" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+		<div id="create-story" class="content scaffold-create" role="main">			
 			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
+			    <div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<g:hasErrors bean="${storyInstance}">
 			<ul class="errors" role="alert">
@@ -26,13 +18,18 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
+			<g:form action="save" class="form-stacked">
 				<fieldset class="form">
+				    <legend>
+                        <g:message code="default.create.label" args="[entityName]" /> 
+                        for ${storyInstance?.project?.name}
+                    </legend>
 					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
+					<g:submitButton name="create" class="btn primary" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:link controller="project" action="show" id="${storyInstance?.project?.id}" class="btn small" >
+                        <g:message code="story.button.cancel.label" default="Cancel" />
+    	            </g:link>
+				</fieldset>					
 			</g:form>
 		</div>
 	</body>
