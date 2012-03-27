@@ -146,16 +146,16 @@
                                 <tbody>
                                     <g:each in="${s.tasks}" var="t" status="i">
                                         <tr>
-                                            <td>${t.description}</td>
-                                            <td>${t.status}</td>
-                                            <td style="text-align:center;">${t.estimate}</td>
-                                            <td style="text-align:center;">${t.actualHours()}</td>
+                                            <td>${t?.description}</td>
+                                            <td>${t?.status}</td>
+                                            <td style="text-align:center;">${t?.estimate}</td>
+                                            <td style="text-align:center;">${t?.actualHours()}</td>
                                             <td>
                                                 <g:link controller="task" action="edit" 
             	                                id="${t?.id}" class="mini btn">
 	                                                Edit
 	                                            </g:link>
-                                                <g:if test="${t.status in ['Pending','Incomplete']}">
+                                                <g:if test="${t?.status in ['Pending','Incomplete']}">
                                                     <g:link controller="task" action="addEntry" 
                 	                                params="${[task_id:t?.id]}"
 	                                                    class="mini btn success">

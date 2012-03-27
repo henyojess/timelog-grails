@@ -49,20 +49,20 @@ class Story {
     
     def completedTasks(){
         return tasks.findAll{t->
-            t.status == 'Completed'
+            ((t != null) && (t?.status == 'Completed'))
         }
     }
     
     def unestimatedTasks(){
         return tasks.findAll{t->
-            t.estimate == null
+            t?.estimate == null
         }
     }
     
     def workedOnBy(){
         def workers = [] as Set
         tasks.each{ t->
-            t.timeEntries.each{e->
+            t?.timeEntries.each{e->
                 workers.add(e.createdBy.split('@')[0])
             }
         }

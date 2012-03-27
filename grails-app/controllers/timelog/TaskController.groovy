@@ -111,7 +111,12 @@ class TaskController {
         }
 
         try {
-            def project = taskInstance.story.project
+            def story = taskInstance.story
+            def project = story.project            
+            taskInstance.timeEntries.each{te->
+                te.task = null
+            }
+            story.removeFromTasks(taskInstance)
             taskInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'task.label', default: 'Task'), params.id])
             redirect(controller:'project',action: "show", id: project?.id)
